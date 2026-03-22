@@ -5,168 +5,204 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FANCODE EVENTS</title>
 
-<meta name="theme-color" content="#050b18">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default,Array.prototype.includes,Object.assign,Promise,fetch"></script>
-
 <style>
 :root{
-  --bg:#050b18;--card:#0b162c;--accent:#e11d48;
-  --live:#e11d48;--upcoming:#f59e0b;
-  --text:#e5e7eb;--muted:#94a3b8;
-  --priority:#facc15;
+  --bg:#020617;
+  --text:#e5e7eb;
 }
-*{box-sizing:border-box}
+
 body{
   margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto;
-  background:radial-gradient(circle at top,#0b1633,#050b18 70%);
+  font-family:'Segoe UI',system-ui;
+  background: radial-gradient(circle at top,#0b1633,#020617 80%);
   color:var(--text);
-  -webkit-overflow-scrolling: touch;
 }
-@media screen and (min-width:1920px){
-  body{padding:20px}
-  .card{transform:scale(1.02)}
+
+/* ANIMATION */
+@keyframes flow{
+  0%{background-position:0%}
+  100%{background-position:200%}
 }
+
+/* HEADER */
 header{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
-  padding:22px 20px;
-  cursor:pointer;
-}
-header span{
-  font-size:26px;
-  font-weight:700;
-  letter-spacing:1px;
-}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:16px;
-  padding:0 20px 14px;
-}
-.stat{
-  background:linear-gradient(135deg,#0b162c,#111c3a);
-  padding:18px;
-  border-radius:14px;
   text-align:center;
+  padding:16px;
+  font-weight:700;
+  font-size:20px;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(10px);
 }
-.stat span{color:var(--muted);font-size:14px}
-.stat h2{margin:8px 0 0;font-size:32px}
+
+header span{
+  background:linear-gradient(90deg,#00f5ff,#ff007a,#00f5ff);
+  background-size:200%;
+  animation:flow 4s linear infinite;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* BUTTONS */
 .type-filter{
   display:flex;
-  gap:10px;
   justify-content:center;
-  padding:0 20px 14px;
+  gap:10px;
+  padding:12px;
+  flex-wrap:wrap;
 }
+
 .type-filter button{
-  background:#0b162c;
+  padding:10px 18px;
   border:none;
-  color:var(--text);
-  padding:10px 20px;
   border-radius:999px;
+  color:white;
   cursor:pointer;
   font-weight:600;
+  background:linear-gradient(90deg,#00f5ff,#ff007a,#00f5ff);
+  background-size:200%;
+  animation:flow 3s linear infinite;
 }
+
 .type-filter button.active{
-  background:var(--accent);
+  box-shadow:0 0 20px rgba(0,255,255,0.7);
 }
-.filters{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  padding:0 20px 16px;
+
+/* TOP BAR */
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 16px;
+  flex-wrap:wrap;
 }
+
+/* CATEGORY */
 .filters select{
-  width:100%;
-  padding:12px;
-  border-radius:12px;
+  width:150px;
+  padding:8px;
+  border-radius:8px;
   border:none;
-  background:#0b162c;
-  color:#fff;
-  font-weight:600;
-  appearance:none;
-  text-align:center;
+  color:white;
+  background:linear-gradient(90deg,#00f5ff,#ff007a,#00f5ff);
+  background-size:200%;
+  animation:flow 4s linear infinite;
 }
+
+/* GRID */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:20px;
-  padding:0 20px 40px;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px;
+  padding:16px;
 }
+
+/* CARD */
 .card{
-  background:var(--card);
-  border-radius:18px;
+  border-radius:16px;
   overflow:hidden;
+  position:relative;
+  background:#0b162c;
 }
+
+/* BORDER ANIMATION */
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  padding:2px;
+  background:linear-gradient(90deg,#00f5ff,#ff007a,#00f5ff);
+  background-size:200%;
+  animation:flow 5s linear infinite;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  border-radius:16px;
+}
+
 .card img{
   width:100%;
   aspect-ratio:16/9;
   object-fit:cover;
-  background:#111c3a;
 }
-.card-body{padding:16px}
+
+.card-body{
+  padding:12px;
+}
+
+/* 🔴 AESTHETIC LIVE PULSE */
+@keyframes livePulse{
+  0%{
+    box-shadow:0 0 0 0 rgba(255,0,100,0.6);
+  }
+  70%{
+    box-shadow:0 0 0 10px rgba(255,0,100,0);
+  }
+  100%{
+    box-shadow:0 0 0 0 rgba(255,0,100,0);
+  }
+}
+
 .badge{
-  display:inline-block;
-  padding:4px 10px;
+  font-size:11px;
+  padding:4px 12px;
   border-radius:999px;
-  font-size:12px;
-  margin-bottom:6px;
+  font-weight:600;
 }
-.upcoming{background:rgba(245,158,11,.15);color:var(--upcoming)}
-.badge.live{
-  background:rgba(225,29,72,.18);
-  color:#fb7185;
-  font-weight:700;
+
+.live{
+  background:#ff0066;
+  color:white;
+  animation:livePulse 1.5s infinite;
 }
+
+.upcoming{
+  background:rgba(0,255,255,0.2);
+  color:#00f5ff;
+}
+
+/* TEXT */
 .title{font-weight:600}
-.tournament{color:var(--muted);font-size:14px}
-.meta{margin-top:6px;font-size:13px;color:var(--muted)}
-button:focus,select:focus,.card:focus{
-  outline:4px solid var(--priority);
-  transform:scale(1.02);
+.meta{font-size:12px;color:#aaa;margin-top:4px}
+
+/* RESPONSIVE */
+@media (max-width:600px){
+  .filters select{width:120px}
+  .type-filter button{padding:8px 14px;font-size:13px}
 }
+
+@media (min-width:1200px){
+  .grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+}
+
 </style>
 </head>
 
 <body>
 
 <header onclick="location.reload()">
-  <span>⚡𝗙𝗔𝗡𝗖𝗢𝗗𝗘 𝗘𝗩𝗘𝗡𝗧𝗦 𝗕𝗬 𝗗𝗛𝗥𝗨𝗩⚡</span>
+  <span>⚡ FANCODE EVENTS ⚡</span>
 </header>
 
-<section class="stats">
-  <div class="stat"><span>Total</span><h2 id="total">0</h2></div>
-  <div class="stat"><span>Live</span><h2 id="live">0</h2></div>
-  <div class="stat"><span>Upcoming</span><h2 id="upcoming">0</h2></div>
-</section>
+<div class="top-bar">
+  <div class="filters">
+    <select id="categoryFilter" onchange="render()">
+      <option value="ALL">CATEGORIES</option>
+    </select>
+  </div>
 
-<div class="type-filter">
-  <button class="active" onclick="setType('ALL')">TOTAL</button>
-  <button onclick="setType('LIVE')">LIVE</button>
-  <button onclick="setType('UPCOMING')">UPCOMING</button>
-</div>
-
-<div class="filters">
-  <select id="categoryFilter" onchange="render()">
-    <option value="ALL">CATEGORIES</option>
-  </select>
-  <select id="tournamentFilter" onchange="render()">
-    <option value="ALL">TOURNAMENTS</option>
-  </select>
+  <div class="type-filter">
+    <button class="active" onclick="setType('LIVE')">LIVE</button>
+    <button onclick="setType('UPCOMING')">UPCOMING</button>
+  </div>
 </div>
 
 <section class="grid" id="events"></section>
 
 <script>
 const API='https://fanco.vodep39240327.workers.dev/';
-let allMatches=[],currentType='ALL';
+let allMatches=[],currentType='LIVE';
 
 async function loadEvents(){
   const res=await fetch(API);
@@ -174,29 +210,17 @@ async function loadEvents(){
 
   allMatches=Array.isArray(data)?data:data.matches||[];
 
-  const totalCount=allMatches.length;
-  const liveCount=allMatches.filter(m=>m.status==='LIVE').length;
-  const upcomingCount=totalCount-liveCount;
-
-  total.textContent=totalCount;
-  live.textContent=liveCount;
-  upcoming.textContent=upcomingCount;
-
   buildFilters();
   render();
 }
 
 function buildFilters(){
   const catSel=categoryFilter;
-  const tourSel=tournamentFilter;
+
   catSel.innerHTML='<option value="ALL">CATEGORIES</option>';
-  tourSel.innerHTML='<option value="ALL">TOURNAMENTS</option>';
 
   [...new Set(allMatches.map(m=>m.event_category))]
     .forEach(c=>catSel.innerHTML+=`<option>${c}</option>`);
-
-  [...new Set(allMatches.map(m=>m.event_name))]
-    .forEach(t=>tourSel.innerHTML+=`<option>${t}</option>`);
 }
 
 function setType(t){
@@ -225,10 +249,9 @@ function render(){
           ${liveNow?'LIVE':'UPCOMING'}
         </span>
         <div class="title">${m.match_name}</div>
-        <div class="tournament">${m.event_name}</div>
+        <div class="meta">${m.event_name}</div>
         <div class="meta">${m.event_category} • ${m.startTime}</div>
         <div class="meta">${m.team_1} vs ${m.team_2}</div>
-        <div class="meta">Language: ${m['language-tag']}</div>
       </div>
     </div>`;
   }
