@@ -169,7 +169,7 @@ function setupPlayer(match){
 const videoLink=match.adfree_url||'';
 if(videoLink){
 const iframe=document.getElementById('videoIframe');
-iframe.src="https://proxy.lrl45.workers.dev/?url="+encodeURIComponent(videoLink);
+iframe.src="https://proxy.lrl45.workers.dev/?stream="+encodeURIComponent(videoLink);
 }
 }
 
