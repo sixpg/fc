@@ -121,7 +121,7 @@ return res.json();
 let match=null;
 
 if(data.matches && Array.isArray(data.matches)){
-match=data.matches.find(m=>m.match_id===matchId);
+match=data.find(m=>String(m.match_id)===String(matchId));
 }
 
 if(!match){
