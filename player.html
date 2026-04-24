@@ -120,8 +120,11 @@ return res.json();
 .then(data=>{
 let match=null;
 
-if(data.matches && Array.isArray(data.matches)){
+if(Array.isArray(data)){
 match=data.find(m=>String(m.match_id)===String(matchId));
+}
+else if(data.matches && Array.isArray(data.matches)){
+match=data.matches.find(m=>String(m.match_id)===String(matchId));
 }
 
 if(!match){
